@@ -5,3 +5,9 @@
 // Example:
 // Input: "Hello World"
 // Output: 5
+
+const lengthOfLastWord = function(s) {
+    if (!s) return 0;
+    const wordsArray = s.split(' ').filter(word => word.length);
+    return wordsArray.length === 0 ? 0 : wordsArray[wordsArray.length - 1].length;  
+};
