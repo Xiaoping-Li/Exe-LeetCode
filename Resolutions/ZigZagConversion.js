@@ -19,3 +19,30 @@
 // A   L S  I G
 // Y A   H R
 // P     I
+
+const convert = function(s, numRows) {
+  if (numRows === 1) return s;
+  
+  const result = [];
+  for (let j = 0; j < numRows; j++) {
+      result.push([]);
+  }
+  
+  const sArray = s.split('');
+  const subArrayLength = 2 * numRows - 2;
+  const subArray = [];
+  while (sArray.length !== 0) {
+      subArray.push(sArray.splice(0, subArrayLength));
+  }
+  
+  for (let i = 0; i < subArray.length; i++) {
+      let item = subArray[i];
+      for (let m = 0; m < numRows; m++) {
+          result[m].push(item.shift());   
+      }
+      for (let n = numRows - 2; n > 0; n--) {
+          result[n].push(item.shift());
+      }
+  }
+  return result.map(item => item.join('')).join(''); 
+};
