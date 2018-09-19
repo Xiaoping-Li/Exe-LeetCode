@@ -4,3 +4,17 @@
 // Example:
 // Input: [1,8,6,2,5,4,8,3,7]
 // Output: 49
+
+// Time complexity: O n^2
+
+var maxArea = function(height) {
+
+  let result = 0;
+  for (let i = 0; i < height.length; i++) {
+      for (let j = i + 1; j < height.length; j++) {
+          let shorter = Math.min(height[i], height[j]);
+          if (result < shorter * (j - i)) result = shorter * (j - i);
+      }
+  }
+  return result;
+};
