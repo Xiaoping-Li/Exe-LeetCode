@@ -32,3 +32,28 @@ var maxArea = function(height) {
   }
   return result;
 };
+
+// Two Pointers solution: 50% solution
+var maxArea = function(height) {
+  let maxarea = 0;
+  let beginIdx = 0;
+  let endIdx = height.length - 1;
+  let i = 1;
+  while (beginIdx !== endIdx) {
+      let begin = height[beginIdx];
+      let end = height[endIdx];
+      if (begin <= end) {
+          if (maxarea < begin * (height.length - i)) {
+            maxarea = begin * (height.length - i);
+          } 
+          beginIdx += 1;
+      } else {
+          if (maxarea < end * (height.length - i)) {
+            maxarea = end * (height.length - i);
+          } 
+          endIdx -= 1;
+      }
+      i++;     
+  }
+  return maxarea;
+};
