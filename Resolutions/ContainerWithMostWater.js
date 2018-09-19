@@ -6,7 +6,7 @@
 // Output: 49
 
 // Time complexity: O n^2
-
+// Runtime 30% solution
 var maxArea = function(height) {
 
   let result = 0;
@@ -15,6 +15,19 @@ var maxArea = function(height) {
           let shorter = Math.min(height[i], height[j]);
           if (result < shorter * (j - i)) result = shorter * (j - i);
       }
+  }
+  return result;
+};
+
+// Runtime 35% solution
+var maxArea = function(height) {
+  const idxOfLongest = height.indexOf(Math.max(...height));
+  let result = 0;
+  for (let i = 0; i <= idxOfLongest; i++) {
+    for (let j = i + 1; j < height.length; j++) {
+        let shorter = Math.min(height[i], height[j]);
+        if (result < shorter * (j - i)) result = shorter * (j - i);   
+    }
   }
   return result;
 };
