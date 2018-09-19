@@ -21,7 +21,8 @@ var maxArea = function(height) {
 
 // Runtime 35% solution
 var maxArea = function(height) {
-  const idxOfLongest = height.indexOf(Math.max(...height));
+  const longest = Math.max(...height);
+  const idxOfLongest = height.indexOf(longest);
   let result = 0;
   for (let i = 0; i <= idxOfLongest; i++) {
     for (let j = i + 1; j < height.length; j++) {
