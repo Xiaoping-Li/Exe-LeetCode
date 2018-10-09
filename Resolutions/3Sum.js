@@ -26,3 +26,55 @@ var threeSum = function(nums) {
   }
   return result.map(item => item.split(' ')).map(ele => ele.map(str => parseInt(str)));
 };
+
+// 311/313 tests pass solution: Didn't pass the big data set
+const threeSum = function(nums) {
+  
+  const addTwo = function(nums) {
+    let result = {};
+    nums.sort();
+    for (let i = 0; i < nums.length; i++) {
+      for (let j = i + 1; j < nums.length; j++) {
+        if (!result[nums[i].toString() + ',' + nums[j].toString()]) {
+          result[nums[i].toString() + ',' + nums[j].toString()] = nums[i] + nums[j];
+        }
+      }
+    }
+    return result;
+  }
+
+  const validatePair = function(obj, arr) {
+    const result = [];
+    for (let key in obj) {
+      if (arr.includes(obj[key] * (-1))) {
+        result.push(key + ',' + obj[key] * (-1).toString());
+      }
+    }
+    return result;
+  }
+
+  const noNegative = [];
+  const negative = [];
+  nums.forEach(num => {
+    if (num < 0) {
+      negative.push(num);
+    } else {
+      noNegative.push(num);
+    }
+  });
+
+  const negaObj = addTwo(negative);
+  const noNegaObj = addTwo(noNegative);
+  const negaArray = validatePair(negaObj, noNegative);
+  const noNegaArray = validatePair(noNegaObj, negative);
+  
+  if (noNegative.filter(item => item === 0).length >= 3) {
+    noNegaArray.push('0,0,0');
+  }
+
+  return negaArray.concat(noNegaArray).map(item => {
+    let arr = item.split(',');
+    return arr.map(ele => parseInt(ele));
+  });
+
+};
