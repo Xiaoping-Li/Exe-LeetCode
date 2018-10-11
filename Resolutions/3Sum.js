@@ -11,7 +11,7 @@
 //   [-1, -1, 2]
 // ]
 
-// Beat 1.9% Solution: Pretty bad, need improve 
+// Beat 1.9% Solution: Pretty bad, need improve. Use {} to store combinations 
 
 const threeSum = function(nums) {
   nums.sort((a,b) => a - b);
@@ -97,5 +97,58 @@ const threeSum = function(nums) {
     let arr = item.split(',');
     return arr.map(ele => parseInt(ele));
   });
+};
+
+
+
+
+// Beat 5% solution: use [] to store combinations
+
+const threeSum = function(nums) {
+  nums.sort((a,b) => a - b);
+
+  const obj = {};
+  const negaArr = [];
+  const posiArr = [];
+  const result = [];
+
+  nums.forEach(num => {
+    if (num < 0 && num !== negaArr[negaArr.length - 1]) {
+      negaArr.push(num);
+    } 
+
+    if (num > 0 && num !== posiArr[posiArr.length - 1]) {
+      posiArr.push(num);
+    }
+
+    if (!obj[num]) {
+        obj[num] = 1;
+    } else {
+        obj[num]++;
+    }
+  });
+ 
+  if (obj[0] >= 3) result.push([0,0,0]);
+
+  for (let i = 0; i < negaArr.length; i++) {
+    let nega = negaArr[i];
+    for (let j = 0; j < posiArr.length; j++) {
+      let posi = posiArr[j];
+      let third = (nega + posi) * (-1);
+       
+      if (third === nega || third === posi) {
+        if (obj[third] > 1) {
+          result.push([nega, third, posi]);
+        }
+      } else {
+        if (obj[third]) {
+          if ((third < posi && third > 0) || third < nega) continue;
+          result.push([nega, third, posi]); 
+        }
+      }
+    }
+  }
+
+  return result;
 };
 
