@@ -11,70 +11,91 @@
 //   [-1, -1, 2]
 // ]
 
-// Timeout solution: This solution is pretty bad, Time Complexity Big O: n^4
-var threeSum = function(nums) {
-  const result = [];
-  for (let i = 0; i < nums.length; i++) {
-      for (let j = i + 1; j < nums.length; j++) {
-          for (let m = j + 1; m < nums.length; m++) {
-            if (nums[i] + nums[j] + nums[m] === 0) {
-              let tripletStr = [nums[i], nums[j], nums[m]].sort((a,b) => a - b).join(' ');
-              if (!result.includes(tripletStr)) result.push(tripletStr);
-            }
-          }
-      }
-  }
-  return result.map(item => item.split(' ')).map(ele => ele.map(str => parseInt(str)));
-};
+// Beat 1.9% Solution: Pretty bad, need improve 
 
-// 311/313 tests pass solution: Didn't pass the big data set
 const threeSum = function(nums) {
-  
-  const addTwo = function(nums) {
-    let result = {};
-    nums.sort();
-    for (let i = 0; i < nums.length; i++) {
-      for (let j = i + 1; j < nums.length; j++) {
-        if (!result[nums[i].toString() + ',' + nums[j].toString()]) {
-          result[nums[i].toString() + ',' + nums[j].toString()] = nums[i] + nums[j];
-        }
-      }
-    }
-    return result;
-  }
+  nums.sort((a,b) => a - b);
 
-  const validatePair = function(obj, arr) {
-    const result = [];
-    for (let key in obj) {
-      if (arr.includes(obj[key] * (-1))) {
-        result.push(key + ',' + obj[key] * (-1).toString());
-      }
-    }
-    return result;
-  }
-
-  const noNegative = [];
-  const negative = [];
+  const obj = {};
+  const negaArr = [];
+  const posiArr = [];
+  const zeroArr = [];
+  const result = {};
   nums.forEach(num => {
     if (num < 0) {
-      negative.push(num);
+      negaArr.push(num);
+      if (!obj[num]) {
+        obj[num] = 1;
+      } else {
+        obj[num]++;
+      }
+    } else if (num > 0) {
+      posiArr.push(num);
+      if (!obj[num]) {
+        obj[num] = 1;
+      } else {
+        obj[num]++;
+      }
     } else {
-      noNegative.push(num);
-    }
+      zeroArr.push(num);
+    } 
   });
 
-  const negaObj = addTwo(negative);
-  const noNegaObj = addTwo(noNegative);
-  const negaArray = validatePair(negaObj, noNegative);
-  const noNegaArray = validatePair(noNegaObj, negative);
-  
-  if (noNegative.filter(item => item === 0).length >= 3) {
-    noNegaArray.push('0,0,0');
+  // Special case: 
+  if (zeroArr.length >= 3) result['0,0,0'] = 1;
+
+  let short;
+  if (zeroArr.length !== 0) {
+    posiArr.length >= negaArr.length ? short = negaArr : short = posiArr;
+
+    short.forEach(num => {
+      let opposite = num * (-1);
+      if (obj[opposite]) {
+        let keyArr = [num, 0, opposite].sort((a,b) => a - b);
+        let key = keyArr[0] + ',' + keyArr[1] + ',' + keyArr[2];
+        if (!result[key]) {
+          result[key] = 1;
+        } else {
+          result[key] += 1;
+        }
+      }
+    });
   }
 
-  return negaArray.concat(noNegaArray).map(item => {
+  for (let i = 0; i < negaArr.length; i++) {
+    let nega = negaArr[i];
+    for (let j = 0; j < posiArr.length; j++) {
+      let posi = posiArr[j];
+      let third = (nega + posi) * (-1);
+      if (third === nega || third === posi) {
+        if (obj[third] > 1) {
+          let keyArr = [nega, posi, third].sort((a,b) => a - b);
+          let key = keyArr[0] + ',' + keyArr[1] + ',' + keyArr[2];
+          if (!result[key]) {
+            result[key] = 1;
+          } else {
+            result[key] += 1;
+          }
+        }
+      }
+
+      if (third !== nega && third !== posi) {
+        if (obj[third]) {
+          let keyArr = [nega, posi, third].sort((a,b) => a - b);
+          let key = keyArr[0] + ',' + keyArr[1] + ',' + keyArr[2];
+          if (!result[key]) {
+            result[key] = 1;
+          } else {
+            result[key] += 1;
+          }
+        }
+      } 
+    }
+  }
+
+  return Object.keys(result).map(item => {
     let arr = item.split(',');
     return arr.map(ele => parseInt(ele));
   });
-
 };
+
