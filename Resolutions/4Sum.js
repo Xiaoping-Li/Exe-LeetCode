@@ -14,27 +14,30 @@
 ]
 */
 
-// Solution:
+// Beat 41.42% Solution:
 const fourSum = function(nums, target) {
   let rtn = [];
   if (nums.length < 4) return rtn;
   nums.sort((a,b) => a - b);
 
   for (let i = 0; i < nums.length - 3; i++) {
-      if (i > 0 && nums[i - 1] === nums[i] && nums[i] === nums[i + 1] && nums[i] === nums[i + 2]) continue;
-    // console.log(i)
+    if (i > 0 && nums[i - 1] === nums[i]) continue;
     for (let j = i + 1, k = j + 1, l = nums.length - 1; k < l;) {
-      console.log(nums[k], nums[l]);
+      console.log(i,j,k,l);
       let temp = nums[i] + nums[j] + nums[k] + nums[l];
-      if (temp === 0) {
+      if (temp === target) {
         rtn.push([nums[i], nums[j], nums[k], nums[l]]);
         k++;
         l--;
-
-
-      } else if (temp > 0) {
+        while (k < l && nums[k] === nums[k - 1]) {
+          k++;
+        } 
+        while (k < l && nums[l] === nums[l + 1]) {
+          l--;
+        }
+      } else if (temp > target) {
         l--;
-        while(nums[l] === nums[l + 1]) {
+        while(k < l && nums[l] === nums[l + 1]) {
           l--;
         }
       } else {
@@ -43,16 +46,22 @@ const fourSum = function(nums, target) {
           k++;
         }
       }
-
-      // if (k === l) {
-      //   j++;
-      //   k = j + 1;
-      //   l = nums.length - 1;
-      // } 
+ 
+      if (k >= l) {
+        j++;
+        while (nums[j] === nums[j - 1]) {
+          j++;
+        }
+        k = j + 1;
+        l = nums.length - 1;
+      }
     }
   } 
 
   return rtn; 
 };
 
-fourSum([1, 0, -1, 0, -2, 2, ]);
+//fourSum([-1,-5,-5,-3,2,5,0,4], -7);
+//fourSum([-1, -1, -1, -1, -1, -1, -1, -1], -4);
+// fourSum([1, 0, -1, 0, -2, 2], 0)
+fourSum([-3,-2,-1,0,0,1,2,3],0)
