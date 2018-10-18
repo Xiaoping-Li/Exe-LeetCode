@@ -9,5 +9,5 @@
 // Input: "cbbd"
 // Output: "bb"
 
-// Output limit exceeded solution:
+// Beat 11% Solution:
 
