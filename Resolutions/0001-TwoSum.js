@@ -15,6 +15,7 @@ return [0, 1].
 // Brute Force solution time complexity is O(n^2), If we use object (hash table) to check existence of complement,
 // the time complexity is O(n)
 var twoSum = function(nums, target) {
+  // Use Object to track appearance of each element
   const obj = {};
   nums.forEach(item => {,
     if (obj[item]) {
@@ -24,6 +25,7 @@ var twoSum = function(nums, target) {
     }
   });
 
+  // Set up pointer
   let firstIdx;
   let first;
   let pairIdx;
@@ -33,7 +35,7 @@ var twoSum = function(nums, target) {
     if ((pair === nums[i] && obj[pair] > 1) || (pair !== nums[i] && obj[pair])) {
       firstIdx = i;
       first = nums[i];
-      break;
+      break; // Remember to break here to make sure firstIdx always comes before pairIdx
     }
   }
 
