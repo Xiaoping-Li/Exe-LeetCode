@@ -49,6 +49,33 @@ var twoSum = function(nums, target) {
 };
 
 
+// Beats 64% Solution: One less for loop than the former one, but slower
+var twoSum = function(nums, target) {
+  const obj = {};
+  let pairIdx;
+  let pair;
+  for (let i = 0; i < nums.length; i++) {
+    let first = target - nums[i];
+    if (obj[nums[i]]) {
+      obj[nums[i]]++;
+    } else {
+      obj[nums[i]] = 1;
+    }
+
+    if ((first === nums[i] && obj[first] > 1) || (first !== nums[i] && obj[first])) {
+      pair = nums[i];
+      pairIdx = i;
+      break;
+    }
+  }
+
+  for (let j = 0; j < pairIdx; j++) {
+    if (nums[j] === target - pair) {
+      return [j, pairIdx];
+    }
+  }
+};
+
 
 // Beats 32% Solution:
 var twoSum = function(nums, target) {
