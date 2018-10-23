@@ -52,6 +52,7 @@ Explanation: The number "-91283472332" is out of the range of a 32-bit signed in
 
 // Beats 41.5% Solution:
 var myAtoi = function(str) {
+  // Trim off all the white space before the first valid character
   let rtn = '';
   let i = 0;
   while (i < str.length) {
@@ -61,9 +62,10 @@ var myAtoi = function(str) {
       break;
     }
   };
-
   const trimStr = str.slice(i);
 
+  // store all valid characters in varaiable rtn, start from the 0 index of trimed string
+  // parseInt('0') returns 0, which is also false, should consoder this special case
   if (!parseInt(trimStr[0])) {
     if (trimStr[0] === '-' || trimStr[0] === '+' || trimStr[0] === '0') {
       rtn += trimStr[0];
@@ -74,7 +76,7 @@ var myAtoi = function(str) {
     rtn += trimStr[0];
   }
 
-   
+  // Check other characters in trimed string, also should consider parseInt('0') special case  
   let j = 1;
   while (j < trimStr.length) {
     if (parseInt(trimStr[j]) || (!parseInt(trimStr[j]) && trimStr[j] === '0')) {
@@ -84,9 +86,9 @@ var myAtoi = function(str) {
       break;
     } 
   }
-
+  // If rtn only has one element, and this element is invalid, return 0
   if (rtn.length === 1 && !parseInt(rtn[0])) return 0;
-
+  // varaiable result is the return value, check it's range before return
   let result = parseInt(rtn);
   if (result > Math.pow(2, 31) - 1) result = Math.pow(2, 31) - 1;
   if (result < -1 * Math.pow(2,31)) result = -1 * Math.pow(2,31);
