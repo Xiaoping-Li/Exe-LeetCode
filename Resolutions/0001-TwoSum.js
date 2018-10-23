@@ -11,6 +11,42 @@ Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 */
 
+// Beats 86.6% Solution:
+// Brute Force solution time complexity is O(n^2), If we use object (hash table) to check existence of complement,
+// the time complexity is O(n)
+var twoSum = function(nums, target) {
+  const obj = {};
+  nums.forEach(item => {,
+    if (obj[item]) {
+      obj[item]++;
+    } else {
+      obj[item] = 1;
+    }
+  });
+
+  let firstIdx;
+  let first;
+  let pairIdx;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    let pair = target - nums[i];
+    if ((pair === nums[i] && obj[pair] > 1) || (pair !== nums[i] && obj[pair])) {
+      firstIdx = i;
+      first = nums[i];
+      break;
+    }
+  }
+
+  for (let j = firstIdx + 1; j < nums.length; j++) {
+    if (nums[j] + first === target) {
+      pairIdx = j;
+    }
+  }
+
+  return [firstIdx, pairIdx];
+};
+
+
 
 // Beats 32% Solution:
 var twoSum = function(nums, target) {
