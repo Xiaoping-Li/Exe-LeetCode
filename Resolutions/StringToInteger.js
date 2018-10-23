@@ -49,3 +49,47 @@ Output: -2147483648
 Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer.
              Thefore INT_MIN (−231) is returned.
 */
+
+// Beats 41.5% Solution:
+var myAtoi = function(str) {
+  let rtn = '';
+  let i = 0;
+  while (i < str.length) {
+    if (str[i] === ' ') {
+      i++;
+    } else {
+      break;
+    }
+  };
+
+  const trimStr = str.slice(i);
+
+  if (!parseInt(trimStr[0])) {
+    if (trimStr[0] === '-' || trimStr[0] === '+' || trimStr[0] === '0') {
+      rtn += trimStr[0];
+    } else {
+      return 0;
+    }
+  } else {
+    rtn += trimStr[0];
+  }
+
+   
+  let j = 1;
+  while (j < trimStr.length) {
+    if (parseInt(trimStr[j]) || (!parseInt(trimStr[j]) && trimStr[j] === '0')) {
+      rtn += trimStr[j];
+      j++;
+    } else {
+      break;
+    } 
+  }
+
+  if (rtn.length === 1 && !parseInt(rtn[0])) return 0;
+
+  let result = parseInt(rtn);
+  if (result > Math.pow(2, 31) - 1) result = Math.pow(2, 31) - 1;
+  if (result < -1 * Math.pow(2,31)) result = -1 * Math.pow(2,31);
+
+  return result; 
+};
