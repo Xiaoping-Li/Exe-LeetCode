@@ -11,7 +11,7 @@ Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 */
 
-// Beats 86.6% Solution:
+// Beats 86.6% Solution: Two-pass Hash Table (Using two for Loops)
 // Brute Force solution time complexity is O(n^2), If we use object (hash table) to check existence of complement,
 // the time complexity is O(n)
 var twoSum = function(nums, target) {
