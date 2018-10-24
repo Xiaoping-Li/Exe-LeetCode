@@ -42,6 +42,40 @@ Output: 1994
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 */
 
+/*
+'MCMXCIV'
+Loop from left to right          Total
+M                                 1000
+MC                                1000 + 100 = 1100
+MCM                               1100 + (1000 – 2 * 100) = 1100 + 800 = 1900
+MCMX                              1900 + 10 = 1910
+MCMXC                             1910 + (100 - 2 * 10) = 1910 + 80 = 1990
+MCMXCI                            1990 + 1 = 1991
+MCMXCIV                           1991 + (5 - 2 * 1) = 1991 + 3 = 1994
+*/
+
+// Beats 99.6% Solution:
+var romanToInt = function(s) {
+  const dict = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+
+  let prev = 0;
+  let rtn = 0;
+  for (let i = 0; i < s.length; i++) {
+    let current = dict[s[i]];
+    rtn += current > prev ? current - 2 * prev : current;
+    prev = current;
+  }
+  return rtn;
+};
+
 // Beats 52% Solution:
 var romanToInt = function(s) {
   const dict = {
