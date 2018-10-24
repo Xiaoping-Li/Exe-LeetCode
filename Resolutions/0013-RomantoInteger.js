@@ -78,3 +78,37 @@ var romanToInt = function(s) {
   });
   return rtn;
 };
+
+
+// Beats 17% Solution:
+var romanToInt = function(s) {
+  const dict = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+    IV: 4,
+    IX: 9,
+    XL: 40,
+    XC: 90,
+    CD: 400,
+    CM: 900
+  };
+
+  let rtn = 0;
+  let i = 0;
+  while (i < s.length) {
+    if ((s[i] === 'I' && (s[i + 1] === 'V' || s[i + 1] === 'X')) || (s[i] === 'X' && (s[i + 1] === 'L' || s[i + 1] === 'C')) || (s[i] === 'C' && (s[i + 1] === 'D' || s[i + 1] === 'M'))) {
+      rtn += dict[s[i] + s[i + 1]];
+      i += 2;
+    } else {
+      rtn += dict[s[i]];
+      i++;
+    }  
+  };
+
+  return rtn;
+};
