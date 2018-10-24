@@ -19,3 +19,11 @@ Follow up:
 
 Coud you solve it without converting the integer to a string?
 */
+
+
+
+
+// Beats 28.8% Solution: Use converting the integer to a string
+var isPalindrome = function(x) {
+    return x.toString().split('').reverse().join('') === x.toString() ? true : false;    
+};
