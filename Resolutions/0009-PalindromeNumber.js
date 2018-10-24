@@ -20,6 +20,24 @@ Follow up:
 Coud you solve it without converting the integer to a string?
 */
 
+// Beats 92% Solution:
+var isPalindrome = function(x) {
+  // These special cases in order
+  if (x < 0 ) return false;
+  if (x < 10) return true;
+  if (x % 10 === 0) return false;
+  // Check if the reverse number equal to the original
+  let num = x;
+  let reverse = 0;
+  while (num > 0) {
+    let remainder = num % 10;
+    reverse = (reverse * 10) + remainder;
+    num = (num - remainder) / 10;
+  }
+  return reverse === x;
+};
+
+
 // Beats 47% Solution:
 var isPalindrome = function(x) {
   if (x < 0) return false;
