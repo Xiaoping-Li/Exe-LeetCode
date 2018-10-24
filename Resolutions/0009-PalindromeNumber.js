@@ -20,7 +20,20 @@ Follow up:
 Coud you solve it without converting the integer to a string?
 */
 
+// Beats 47% Solution:
+var isPalindrome = function(x) {
+  if (x < 0) return false;
+ 
+  let num = x;
+  let reverse = 0;
+  while (num > 0) {
+    let remainder = num % 10;
+    reverse = (reverse * 10) + remainder;
+    num = (num - remainder) / 10;
+  }
 
+  return reverse === x || x === 0;
+};
 
 
 // Beats 28.8% Solution: Use converting the integer to a string
