@@ -19,6 +19,15 @@ purpose of this problem, assume that your function returns 0 when the reversed i
 */
 
 
+// Bests 65% Solution:
+var reverse = function(x) {
+  const absX = Math.abs(x);
+  const revers = absX.toString().split('').reverse().join('');
+  let result;
+  x >= 0 ? result = parseInt(revers) : result = parseInt(-1 * revers); 
+  return result >= -1 * Math.pow(2, 31) && result <= Math.pow(2, 31) - 1 ? result : 0;
+};
+
 // Beats 65% Solution:
 var reverse = function(x) {
   const xStr = x.toString();
