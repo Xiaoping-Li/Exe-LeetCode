@@ -29,6 +29,40 @@ Input: "{[]}"
 Output: true
 */
 
+// Use Data Structure Stack
+var isValid = function(s) {
+  const leftDict = {
+    '(': ')',
+    '[': ']',
+    '{': '}'
+  };
+
+  const rightDict = {
+    ')': '(',
+    ']': '[',
+    '}': '{'
+  };
+
+  const stack = [];
+  for (let i = 0; i < s.length; i++) {
+    let popout;
+    if (leftDict[s[i]]) {
+      stack.push(s[i]);
+    }
+
+    if (rightDict[s[i]]) {
+      popout = stack.pop();
+      if (popout !== rightDict[s[i]]) return false;
+    }
+  }
+  
+  if (stack.length > 0) return false;
+  return true;   
+};
+
+
+
+
 // Beats 1.82% Solution: Time Complexity: O(n^2)
 var isValid = function(s) {
   const dict = {
