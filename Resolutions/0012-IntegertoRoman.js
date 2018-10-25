@@ -41,3 +41,75 @@ Input: 1994
 Output: "MCMXCIV"
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 */
+
+// Beats 56% Solution:
+var intToRoman = function(num) {
+    let s = num.toString();
+    let rtn = '';
+    while (s) {
+        let n = s.length;
+        if (n === 4) {
+            let m = parseInt(s[0]);
+            while (m > 0) {
+                rtn += 'M';
+                m--;
+            }
+        } else if (n === 3) {
+            let m = parseInt(s[0]);
+            if (m === 9) {
+                rtn += 'CM';
+            } else if (m >= 5) {
+                rtn += 'D';
+                while (m - 5 > 0) {
+                    rtn += 'C';
+                    m--;
+                }
+            } else if (m === 4) {
+                rtn += 'CD';
+            } else {
+                while (m > 0) {
+                    rtn += 'C';
+                    m--;
+                }
+            }
+        } else if (n === 2) {
+            let m = parseInt(s[0]);
+            if (m === 9) {
+                rtn += 'XC';
+            } else if (m >= 5) {
+                rtn += 'L';
+                while (m - 5 > 0) {
+                    rtn += 'X';
+                    m--;
+                }
+            } else if (m === 4) {
+                rtn += 'XL';
+            } else {
+                while (m > 0) {
+                    rtn += 'X';
+                    m--;
+                }
+            }
+        } else {
+            let m = parseInt(s[0]);
+            if (m === 9) {
+                rtn += 'IX';
+            } else if (m >= 5) {
+                rtn += 'V';
+                while (m - 5 > 0) {
+                    rtn += 'I';
+                    m--;
+                }
+            } else if (m === 4) {
+                rtn += 'IV';
+            } else {
+                while (m > 0) {
+                    rtn += 'I';
+                    m--;
+                }
+            }  
+        }
+        s = s.slice(1);
+    }
+    return rtn;
+};
