@@ -29,7 +29,7 @@ Input: "{[]}"
 Output: true
 */
 
-// Beats 1.82% Solution:
+// Beats 1.82% Solution: Time Complexity: O(n^2)
 var isValid = function(s) {
   const dict = {
     '(': ')',
@@ -39,6 +39,7 @@ var isValid = function(s) {
 
   if (s.length === 0) return true;
   if (s.length % 2 !== 0) return false;
+  
   let str = s;
   while (str.length > 1) {
     let i = 0;
