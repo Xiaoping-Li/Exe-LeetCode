@@ -21,6 +21,65 @@ Output: 1->1->2->3->4->4
  * @return {ListNode}
 */
 
+// 38% Solution: Move the tail check while loop out of the main while loop:
+var mergeTwoLists = function(l1, l2) {
+  if (!l1 && l2) return l2;
+  if (!l2 && l1) return l1;
+  if (!l1 && !l2) return null;
+
+  let rtn;
+  let currentL1 = l1;
+  let currentL2 = l2;
+
+  if (currentL1.val < currentL2.val) {
+    rtn = new ListNode(currentL1.val);
+    currentL1 = currentL1.next;
+  } else if (currentL2.val < currentL1.val) {
+    rtn = new ListNode(currentL2.val); 
+    currentL2 = currentL2.next;
+  } else {
+    rtn = new ListNode(currentL1.val);
+    rtn.next = new ListNode(currentL2.val);
+    currentL1 = currentL1.next;
+    currentL2 = currentL2.next;
+  }
+  // Get the tail for original rtn;
+  let tail = rtn;
+  while(tail.next) {
+    tail = tail.next;
+  }
+  // Keep updating the tail inside the main while loop:
+  while(currentL1 && currentL2) {
+    if (currentL1.val < currentL2.val) {
+      tail.next = new ListNode(currentL1.val);
+      currentL1 = currentL1.next;
+      tail = tail.next;
+    } else if (currentL2.val < currentL1.val) {
+      tail.next = new ListNode(currentL2.val); 
+      currentL2 = currentL2.next;
+      tail = tail.next;
+    } else {
+      tail.next = new ListNode(currentL1.val);
+      tail.next.next = new ListNode(currentL2.val);
+      currentL1 = currentL1.next;
+      currentL2 = currentL2.next;
+      tail = tail.next.next;
+    }
+  }
+
+  if (currentL1) {
+    tail.next = currentL1;  
+  }
+  if (currentL2) {
+    tail.next = currentL2;  
+  }
+
+  return rtn;
+};
+
+
+
+
 // Beat 2% solution:
 var mergeTwoLists = function(l1, l2) {
   // Special cases
