@@ -23,9 +23,8 @@ Output: 1->1->2->3->4->4
 
 // 38% Solution: Move the tail check while loop out of the main while loop:
 var mergeTwoLists = function(l1, l2) {
-  if (!l1 && l2) return l2;
-  if (!l2 && l1) return l1;
-  if (!l1 && !l2) return null;
+  if (!l1) return l2;
+  if (!l2) return l1;
 
   let rtn;
   let currentL1 = l1;
