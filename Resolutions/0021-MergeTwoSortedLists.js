@@ -21,6 +21,26 @@ Output: 1->1->2->3->4->4
  * @return {ListNode}
 */
 
+
+// Recursion solution from Leetcode:
+var mergeTwoLists = function(l1, l2) {
+  if (!l1) return l2;
+  if (!l2) return l1;
+  
+  let head;
+  if (l1.val <= l2.val) {
+    head = l1;
+    l1.next = mergeTwoLists(l1.next, l2);
+  } else {
+    head = l2;
+    l2.next = mergeTwoLists(l1, l2.next);
+  }
+  
+  return head;
+};
+
+
+
 // 38% Solution: Move the tail check while loop out of the main while loop:
 var mergeTwoLists = function(l1, l2) {
   if (!l1) return l2;
@@ -82,10 +102,9 @@ var mergeTwoLists = function(l1, l2) {
 // Beat 2% solution:
 var mergeTwoLists = function(l1, l2) {
   // Special cases
-  if (!l1 && l2) return l2;
-  if (!l2 && l1) return l1;
-  if (!l1 && !l2) return null;
-    
+  if (!l1) return l2;
+  if (!l2) return l1;
+  
   let rtn;
   let currentL1 = l1;
   let currentL2 = l2;
