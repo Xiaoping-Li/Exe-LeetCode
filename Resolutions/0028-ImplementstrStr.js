@@ -10,6 +10,12 @@
 // Input: haystack = "aaaaa", needle = "bba"
 // Output: -1
 
+
+
+
+
+
+// Beats 57% Solution: 
 const strStr = function(haystack, needle) {
   if (!needle) return 0;
   const needleLen = needle.length;
