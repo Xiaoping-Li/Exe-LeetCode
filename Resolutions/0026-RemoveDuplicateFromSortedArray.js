@@ -10,6 +10,24 @@
 // Output: Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively. It doesn't matter what values are set beyond the returned length.
 
 
+// Beats 100% Solution: Time complexity O(n)
+var removeDuplicates = function(nums) {
+  if (nums.length === 0) return 0;
+  // j is used to count how many different value this array has
+  let j = 0;
+  for (let i = 1; i < nums.length; i++) {
+    // if different value is found, j adds on one count, also change the value at j to the non-duplicate val
+    // Also make sure if no duplicate between j and i, j + 1 = i 
+    if (nums[i] !== nums[j]) {
+      j++;
+      nums[j] = nums[i];
+    }
+  }
+  return j + 1;
+};
+
+
+
 // Time complexity: O(n)
 var removeDuplicates = function(nums) {
   let size = nums.length;
