@@ -35,3 +35,15 @@ var removeElement = function(nums, val) {
   }
   return j;
 };
+
+
+
+
+// Beats 45% Solution: Time complexity O(n^2)
+var removeElement = function(nums, val) {
+    while (nums.includes(val)) {
+        let idx = nums.indexOf(val);
+        nums.splice(idx, 1);
+    }   
+    return nums.length;
+};
