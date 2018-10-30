@@ -22,3 +22,16 @@ Note that the order of those five elements can be arbitrary.
 
 It doesn't matter what values are set beyond the returned length.
 */
+
+// Beats 100% Solution: Time complexity: O(n)
+var removeElement = function(nums, val) {
+  if (nums.length === 0) return 0;
+  let j = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== val) {
+      nums[j] = nums[i];
+      j++;
+    }
+  }
+  return j;
+};
