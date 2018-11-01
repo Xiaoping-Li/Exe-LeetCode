@@ -49,6 +49,7 @@ The given board size is always 9x9.
 
 // Beats 54% Solution:
 var isValidSudoku = function(board) {
+  // Helper function to check every number only appears once
   const hashTable = (array) => {
     let hash = {};
     for (let i = 0; i < array.length; i++) {
@@ -64,10 +65,11 @@ var isValidSudoku = function(board) {
   };
 
   for (let i = 0; i < 9; i++) {
+    // Check each 1X9 row
     let hashRow = hashTable(board[i]);
     let filterRow = Object.values(hashRow).filter(item => item > 1);
     if (filterRow.length) return false;
-
+    // Check each 9X1 Row
     let column = [];
     for (let j = 0; j < 9; j++) {
       column.push(board[j][i]);
@@ -77,7 +79,7 @@ var isValidSudoku = function(board) {
     if (filterCol.length) return false;
   } 
 
-  // 3X3 sub-boxes
+  // Check each 3X3 sub-boxes
   let baseI = 0;
   while (baseI < 9) {
     let baseJ = 0;
