@@ -45,3 +45,56 @@ Only the filled cells need to be validated according to the mentioned rules.
 The given board contain only digits 1-9 and the character '.'.
 The given board size is always 9x9.
 */
+
+
+// Beats 54% Solution:
+var isValidSudoku = function(board) {
+  const hashTable = (array) => {
+    let hash = {};
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] !== '.') {
+        if (hash[array[i]]) {
+          hash[array[i]]++;
+        } else {
+          hash[array[i]] = 1;
+        }
+      }  
+    }
+    return hash;
+  };
+
+  for (let i = 0; i < 9; i++) {
+    let hashRow = hashTable(board[i]);
+    let filterRow = Object.values(hashRow).filter(item => item > 1);
+    if (filterRow.length) return false;
+
+    let column = [];
+    for (let j = 0; j < 9; j++) {
+      column.push(board[j][i]);
+    }
+    let hashColumn = hashTable(column);
+    let filterCol = Object.values(hashColumn).filter(item => item > 1);
+    if (filterCol.length) return false;
+  } 
+
+  // 3X3 sub-boxes
+  let baseI = 0;
+  while (baseI < 9) {
+    let baseJ = 0;
+    while (baseJ < 9) {
+      let subBox = [];
+      for (let i = baseI; i < baseI + 3; i++) {
+        for (let j = baseJ; j < baseJ + 3; j++) {
+          subBox.push(board[i][j]);
+        }
+      }
+      let hashSub = hashTable(subBox);
+      let filterSub = Object.values(hashSub).filter(item => item > 1);
+      if (filterSub.length) return false;
+      baseJ += 3;
+    }
+    baseI += 3;
+  }
+
+  return true;    
+};
