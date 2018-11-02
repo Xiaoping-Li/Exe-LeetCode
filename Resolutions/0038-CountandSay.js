@@ -22,5 +22,30 @@ Note: Each term of the sequence of integers will be represented as a string.
 */
 
 
+// This question is really confusing in the beginning, but once you figure out, it is easy
+// Find countAndSay(n-1) first, count how many each element in it,
+// If no repeat, then 1+element
+// If repeat k times, then k+element
 // Beats 65% Solution:
+var countAndSay = function(n) {
+  if (n === 1) return '1';
+  let prev = countAndSay(n - 1);
+  let rtn = '';
+  
+  let i = 0;
+  while (i < prev.length) {
+    if (prev[i] !== prev[i + 1]) {
+      rtn += 1 + prev[i];
+      i++;
+    } else {
+      let k = i;
+      while (prev[i] === prev[k]) {
+        k++;
+      }
+      rtn += (k - i) + prev[i];
+      i = k;
+    }
+  }
 
+  return rtn;    
+};
